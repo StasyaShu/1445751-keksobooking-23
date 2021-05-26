@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Станислава Шулепова](https://up.htmlacademy.ru/javascript/23/user/1445751).
-* Наставник: `Неизвестно`.
+* Наставник: [Никита Победоносцев](https://htmlacademy.ru/profile/nikkypizza).
 
 ---
 
