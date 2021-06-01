@@ -14,7 +14,7 @@ getInteger (0, 10);
 function getCoordinates (min, max, digits) {
 
   if (min >= 0 && max >= 0 && digits >= 0) {
-    const number = Math.random() * (max - min + 1) + min;
+    const number = Math.random() * (max - min) + min;
     return +number.toFixed(digits);
   } else {
     throw new Error('getCoordinates — аргументы могут быть только положительными числами');
