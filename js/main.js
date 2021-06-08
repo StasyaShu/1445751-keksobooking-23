@@ -66,18 +66,6 @@ const getLocation =  () => ({
   lng: getRandomFloatInteger(LONGITUDE.min, LONGITUDE.max, 5),
 });
 
-const getPrice = () => {
-  getRandomInteger(PRICE.min, PRICE.max);
-};
-
-const getGuests = () => {
-  getRandomInteger(GUESTS.min, GUESTS.max);
-};
-
-const getRooms = () => {
-  getRandomInteger(ROOMS.min, ROOMS.max);
-};
-
 const getOfferArray = (amount) => {
   const offerArray = [];
   for (let i = 1; i <= amount; i++) {
@@ -89,11 +77,11 @@ const getOfferArray = (amount) => {
 
       offer: {
         title: 'Аренда жилья в Токио',
-        address: CURRENT_LOCATION,
-        price: getPrice(),
+        address: `${CURRENT_LOCATION.lat}, ${CURRENT_LOCATION.lng}`,
+        price: getRandomInteger(PRICE.min, PRICE.max),
         type: getRandomArrayElement(getShuffledArray(HOUSING_TYPES)),
-        rooms: getRooms(),
-        guests: getGuests(),
+        rooms: getRandomInteger(ROOMS.min, ROOMS.max),
+        guests: getRandomInteger(GUESTS.min, GUESTS.max),
         checkin: getRandomArrayElement(CHECKIN_ARRAY),
         checkout: getRandomArrayElement(CHECKOUT_ARRAY),
         features: getShuffledArray(FEATURES).slice(0, getRandomInteger(1, FEATURES.length)),
@@ -105,7 +93,7 @@ const getOfferArray = (amount) => {
   }
   return offerArray;
 };
-const adsArray = getOfferArray(10);
-adsArray;
+const offersArray = getOfferArray(10);
+offersArray;
 
 
