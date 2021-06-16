@@ -1,5 +1,3 @@
-import {LATITUDE, LONGITUDE} from './data.js';
-
 const getRandomInteger = (min, max) => {
 
   if (min < 0 || max < 0) {
@@ -33,9 +31,6 @@ const getShuffledArray = (array) => {
   return array;
 };
 
-const getLocation =  () => ({
-  lat: getRandomFloatInteger(LATITUDE.min, LATITUDE.max, 5),
-  lng: getRandomFloatInteger(LONGITUDE.min, LONGITUDE.max, 5),
-});
+const getLocation =  (min, max) => getRandomFloatInteger(min, max, 5);
 
 export {getRandomInteger, getRandomFloatInteger, getRandomArrayElement, getShuffledArray, getLocation};
