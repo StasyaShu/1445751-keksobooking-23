@@ -35,7 +35,6 @@ const getOfferArray = (amount) => {
   return offerArray;
 };
 const offersArray = getOfferArray(10);
-offersArray;
 
-export {getOfferArray};
+export {offersArray};
 

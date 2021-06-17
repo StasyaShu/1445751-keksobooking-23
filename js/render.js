@@ -1,8 +1,8 @@
-import {getOfferArray} from './main.js';
+import {offersArray} from './main.js';
 
 const similarOffer = document.querySelector('#map-canvas');
-const offerTemplate = document.querySelector('#card').textContent.querySelector('.popup');
-const generateAds = getOfferArray();
+const offerTemplate = document.querySelector('#card').content.querySelector('.popup');
+const generateAds = offersArray;
 const adsFragment = document.createDocumentFragment();
 const TYPE_TRANSLATE = {
   flat: 'Квартира',
@@ -11,7 +11,7 @@ const TYPE_TRANSLATE = {
   palace: 'Дворец ',
   hotel: 'Отель',
 };
-const imgTemplate = document.querySelector('#card').textContent.querySelector('.popup__photo');
+const imgTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
 const insertPhoto = (element, array) => {
   element.innerHTML = '';
 
