@@ -1,5 +1,6 @@
 import {getRandomInteger, getRandomArrayElement, getShuffledArray, getLocation} from './util.js';
 import {FEATURES, PHOTOS, HOUSING_TYPES, CHECKIN_ARRAY, CHECKOUT_ARRAY, LATITUDE, LONGITUDE, PRICE, ROOMS, GUESTS} from './data.js';
+import './render.js';
 
 const getOfferArray = (amount) => {
   const offerArray = [];
@@ -36,4 +37,5 @@ const getOfferArray = (amount) => {
 const offersArray = getOfferArray(10);
 offersArray;
 
+export {getOfferArray};
 
