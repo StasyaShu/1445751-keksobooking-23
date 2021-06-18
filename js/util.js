@@ -70,7 +70,7 @@ const getOffersArray = (amount) => {
   return offerArray;
 };
 
-const offersArray = getOffersArray(10);
+const offersArray = getOffersArray(1);
 offersArray;
 
 export {offersArray};
