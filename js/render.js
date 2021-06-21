@@ -1,7 +1,5 @@
-import {offersArray} from './util.js';
 import {TYPE_TRANSLATE} from './data.js';
 
-const similarOffer = document.querySelector('#map-canvas');
 const offerTemplate = document.querySelector('#card').content.querySelector('.popup');
 const imgTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
 
@@ -10,8 +8,7 @@ const insertFeatures = function (element, array) {
 
   array.forEach((item) => {
     const featureItem = document.createElement('li');
-    featureItem.classList.add('popup__feature');
-    featureItem.classList.add(`popup__feature--${item}`);
+    featureItem.classList.add('popup__feature', `popup__feature--${item}`);
     element.appendChild(featureItem);
   });
 };
@@ -44,6 +41,5 @@ const generateAds = (ads) => {
   });
   return adsFragment;
 };
-generateAds(offersArray);
-similarOffer.appendChild(generateAds(offersArray));
-similarOffer.innerHTML;
+
+export {generateAds};
