@@ -1,10 +1,9 @@
-const forms = document.querySelectorAll('form');
 const searchForm = document.querySelector('.ad-form');
 const mapForm = document.querySelector('.map__filters');
 
 const toggleDisabledOnFormNodes = (isDisabled) => {
-  forms.forEach((value) => {
-    for (const element of value.elements) {
+  [searchForm, mapForm].forEach((form) => {
+    for (const element of form.elements) {
       element.disabled = isDisabled;
     }
   });
