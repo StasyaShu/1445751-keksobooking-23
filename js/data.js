@@ -27,15 +27,34 @@ const GUESTS = {
   min: 1,
   max: 10,
 };
-const TYPE_TRANSLATE = {
-  flat: 'Квартира',
-  bungalow: 'Бунгало ',
-  house: 'Дом ',
-  palace: 'Дворец ',
-  hotel: 'Отель',
+const APARTMENT_TYPES = {
+  flat: {
+    name: 'Квартира',
+    minPrice: 1000,
+  },
+  bungalow: {
+    name: 'Бунгало',
+    minPrice: 0,
+  },
+  house: {
+    name: 'Дом',
+    minPrice: 5000,
+  },
+  palace: {
+    name: 'Дворец',
+    minPrice: 10000,
+  },
+  hotel: {
+    name: 'Отель',
+    minPrice: 3000,
+  },
 };
 
-const MIN_TITLE_LENGTH = 30;
-const MAX_TITLE_LENGTH = 100;
+const ROOMS_FOR_GUESTS_MAP = {
+  1: ['1'],
+  2: ['1', '2'],
+  3: ['1', '2', '3'],
+  100: ['0'],
+};
 
-export {FEATURES, PHOTOS, HOUSING_TYPES, CHECKIN_ARRAY, CHECKOUT_ARRAY, LATITUDE, LONGITUDE, PRICE, ROOMS, GUESTS, TYPE_TRANSLATE, MIN_TITLE_LENGTH, MAX_TITLE_LENGTH};
+export {FEATURES, PHOTOS, HOUSING_TYPES, CHECKIN_ARRAY, CHECKOUT_ARRAY, LATITUDE, LONGITUDE, PRICE, ROOMS, GUESTS, APARTMENT_TYPES, ROOMS_FOR_GUESTS_MAP};

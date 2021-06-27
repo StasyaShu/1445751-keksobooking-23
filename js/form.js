@@ -1,18 +1,12 @@
-import {MIN_TITLE_LENGTH, MAX_TITLE_LENGTH} from './data.js';
+import {ROOMS_FOR_GUESTS_MAP, APARTMENT_TYPES} from './data.js';
 
-const searchForm = document.querySelector('.ad-form');
-const mapForm = document.querySelector('.map__filters');
-const searchFormTitle = searchForm.querySelector('#title');
-const roomsQty = searchForm.querySelector('#room_number');
-const ROOMS_FOR_GUESTS_MAP = {
-  1: ['1'],
-  2: ['1', '2'],
-  3: ['1', '2', '3'],
-  100: ['0'],
-};
+const adForm = document.querySelector('.ad-form');
+const filtersForm = document.querySelector('.map__filters');
+const price = adForm.querySelector('#price');
+const timeOut = adForm.querySelector('#timeout');
 
 const toggleDisabledOnFormNodes = (isDisabled) => {
-  [searchForm, mapForm].forEach((form) => {
+  [adForm, filtersForm].forEach((form) => {
     for (const element of form.elements) {
       element.disabled = isDisabled;
     }
@@ -20,31 +14,34 @@ const toggleDisabledOnFormNodes = (isDisabled) => {
 };
 
 const togglePageActiveState = (isDisabled) => {
-  searchForm.classList.toggle('ad-form--disabled', isDisabled);
-  mapForm.classList.toggle('map__filters--disabled', isDisabled);
+  adForm.classList.toggle('ad-form--disabled', isDisabled);
+  filtersForm.classList.toggle('map__filters--disabled', isDisabled);
 
   toggleDisabledOnFormNodes(isDisabled);
 };
 
-searchFormTitle.addEventListener('input', () => {
-  const valueLength = searchFormTitle.value.length;
-
-  if (valueLength < MIN_TITLE_LENGTH) {
-    searchFormTitle.setCustomValidity(`Ещё ${MIN_TITLE_LENGTH - valueLength} симв.`);
-  } else if (valueLength > MAX_TITLE_LENGTH) {
-    searchFormTitle.setCustomValidity(`Удалите лишние ${valueLength - MAX_TITLE_LENGTH} симв.`);
-  } else {
-    searchFormTitle.setCustomValidity('');
-  }
-  searchFormTitle.reportValidity();
-});
-
 const validateRoomsInput = (evt) => {
   const capacityOptions = ROOMS_FOR_GUESTS_MAP[evt.target.value];
-  for (const currentCapacityItem of searchForm.capacity.children) {
+  for (const currentCapacityItem of adForm.capacity.children) {
     currentCapacityItem.disabled = !capacityOptions.includes(currentCapacityItem.value);
   }
-  searchForm.capacity.value = capacityOptions[0];
+  adForm.capacity.value = capacityOptions[0];
 };
 
-export {togglePageActiveState, validateRoomsInput, roomsQty};
+adForm.rooms.addEventListener('change', validateRoomsInput);
+
+const setMinPrice = (evt) => {
+  const minPrice = APARTMENT_TYPES[evt.target.value].minPrice;
+  price.min = minPrice;
+  price.placeholder = minPrice.toString();
+};
+
+adForm.type.addEventListener('change', setMinPrice);
+
+const setCheckTime = (evt) => {
+  timeOut.value = evt.target.value;
+};
+
+adForm.timein.addEventListener('change', setCheckTime);
+
+export {togglePageActiveState};
