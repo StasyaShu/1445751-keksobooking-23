@@ -1,4 +1,4 @@
-import {TYPE_TRANSLATE} from './data.js';
+import {APARTMENT_TYPES} from './data.js';
 
 const offerTemplate = document.querySelector('#card').content.querySelector('.popup');
 const imgTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
@@ -30,7 +30,7 @@ const generateAds = (ads) => {
     adsElement.querySelector('.popup__title').textContent = ad.offer.title;
     adsElement.querySelector('.popup__text--address').textContent = ad.offer.address;
     adsElement.querySelector('.popup__text--price').textContent = `${ad.offer.price} ₽/ночь`;
-    adsElement.querySelector('.popup__type').textContent = TYPE_TRANSLATE[ad.offer.type];
+    adsElement.querySelector('.popup__type').textContent = APARTMENT_TYPES[ad.offer.type].name;
     adsElement.querySelector('.popup__text--capacity').textContent = `${ad.offer.rooms} комнаты для ${ad.offer.guests} гостей`;
     adsElement.querySelector('.popup__text--time').textContent = `Заезд после ${ad.offer.checkin}, выезд до ${ad.offer.checkout}`;
     insertFeatures(adsElement.querySelector('.popup__features'), ad.offer.features);
