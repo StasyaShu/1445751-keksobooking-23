@@ -4,6 +4,7 @@ const adForm = document.querySelector('.ad-form');
 const filtersForm = document.querySelector('.map__filters');
 const price = adForm.querySelector('#price');
 const timeOut = adForm.querySelector('#timeout');
+const timeIn = adForm.querySelector('#timein');
 
 const toggleDisabledOnFormNodes = (isDisabled) => {
   [adForm, filtersForm].forEach((form) => {
@@ -30,18 +31,24 @@ const validateRoomsInput = (evt) => {
 
 adForm.rooms.addEventListener('change', validateRoomsInput);
 
-const setMinPrice = (evt) => {
+const validatePriceInput = (evt) => {
   const minPrice = APARTMENT_TYPES[evt.target.value].minPrice;
   price.min = minPrice;
-  price.placeholder = minPrice.toString();
+  price.placeholder = minPrice;
 };
 
-adForm.type.addEventListener('change', setMinPrice);
+adForm.type.addEventListener('change', validatePriceInput);
 
-const setCheckTime = (evt) => {
+const validateTimeInInput = (evt) => {
   timeOut.value = evt.target.value;
 };
 
-adForm.timein.addEventListener('change', setCheckTime);
+adForm.timein.addEventListener('change', validateTimeInInput);
+
+const validateTimeOutInput = (evt) => {
+  timeIn.value = evt.target.value;
+};
+
+adForm.timeout.addEventListener('change', validateTimeOutInput);
 
 export {togglePageActiveState};
