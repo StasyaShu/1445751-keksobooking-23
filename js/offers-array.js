@@ -30,6 +30,6 @@ const getOffersArray = (amount) => {
   return offerArray;
 };
 
-const offersArray = getOffersArray(1);
+const offersArray = getOffersArray(10);
 
 export {offersArray};

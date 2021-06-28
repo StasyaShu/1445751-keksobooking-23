@@ -1,10 +1,15 @@
 import {generateAds} from './render.js';
 import {offersArray} from './offers-array.js';
 import {togglePageActiveState} from './form.js';
+import {addPoints} from './map.js';
+import './map.js';
 
-const similarOffer = document.querySelector('#map-canvas');
+const ads = generateAds(offersArray);
+addPoints(ads);
 
-generateAds(offersArray);
-similarOffer.appendChild(generateAds(offersArray));
+// const similarOffer = document.querySelector('#map-canvas');
+
+// generateAds(offersArray);
+// similarOffer.appendChild(generateAds(offersArray));
 
 togglePageActiveState(false);

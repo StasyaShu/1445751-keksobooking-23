@@ -24,8 +24,9 @@ const insertPhoto = (element, array) => {
 };
 
 const generateAds = (ads) => {
-  const adsFragment = document.createDocumentFragment();
+  const adsArray = [];
   ads.forEach((ad) => {
+    const adsFragment = document.createDocumentFragment();
     const adsElement = offerTemplate.cloneNode(true);
     adsElement.querySelector('.popup__title').textContent = ad.offer.title;
     adsElement.querySelector('.popup__text--address').textContent = ad.offer.address;
@@ -38,8 +39,19 @@ const generateAds = (ads) => {
     insertPhoto(adsElement.querySelector('.popup__photos'), ad.offer.photos);
     adsElement.querySelector('.popup__avatar').src = ad.author.avatar;
     adsFragment.appendChild(adsElement);
+
+    const coords = ad.offer.address.split(',');
+    const item = {
+      coords: {
+        lat: coords[0],
+        lng: coords[1],
+      },
+      element: adsFragment,
+    };
+
+    adsArray.push(item);
   });
-  return adsFragment;
+  return adsArray;
 };
 
 export {generateAds};
