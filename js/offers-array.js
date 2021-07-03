@@ -1,4 +1,4 @@
-import {FEATURES, PHOTOS, HOUSING_TYPES, CHECKIN_ARRAY, CHECKOUT_ARRAY, LATITUDE, LONGITUDE, PRICE, ROOMS, GUESTS} from './data.js';
+import {FEATURES, PHOTOS, HOUSING_TYPES, CHECKIN_ARRAY, CHECKOUT_ARRAY, LATITUDE, LONGITUDE, PRICE, ROOMS, GUESTS, OFFERS_NUMBER} from './data.js';
 import {getRandomInteger, getRandomArrayElement, getShuffledArray, getLocation} from './util.js';
 
 const getOffersArray = (amount) => {
@@ -30,6 +30,6 @@ const getOffersArray = (amount) => {
   return offerArray;
 };
 
-const offersArray = getOffersArray(10);
+const offersArray = getOffersArray(OFFERS_NUMBER);
 
 export {offersArray};

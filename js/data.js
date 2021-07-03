@@ -57,4 +57,40 @@ const ROOMS_FOR_GUESTS_MAP = {
   100: ['0'],
 };
 
-export {FEATURES, PHOTOS, HOUSING_TYPES, CHECKIN_ARRAY, CHECKOUT_ARRAY, LATITUDE, LONGITUDE, PRICE, ROOMS, GUESTS, APARTMENT_TYPES, ROOMS_FOR_GUESTS_MAP};
+const PinSetting = {
+  main: {
+    iconUrl: 'img/main-pin.svg',
+    iconSize: [52, 52],
+    iconAnchor: [26, 52],
+  },
+  regular: {
+    iconUrl: 'img/pin.svg',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+  },
+};
+
+const TOKYO_CENTER = {
+  lat: 35.681700,
+  lng: 139.753891,
+};
+
+const OFFERS_NUMBER = 10;
+
+export {
+  FEATURES,
+  PHOTOS,
+  HOUSING_TYPES,
+  CHECKIN_ARRAY,
+  CHECKOUT_ARRAY,
+  LATITUDE,
+  LONGITUDE,
+  PRICE,
+  ROOMS,
+  GUESTS,
+  APARTMENT_TYPES,
+  ROOMS_FOR_GUESTS_MAP,
+  PinSetting,
+  TOKYO_CENTER,
+  OFFERS_NUMBER
+};

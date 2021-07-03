@@ -1,13 +1,16 @@
+import {togglePageActiveState} from './form.js';
+import {generateAd} from './render.js';
+import {PinSetting, TOKYO_CENTER} from './data.js';
 const resetButton = document.querySelector('.ad-form__reset');
+const inputAddress = document.querySelector('#address');
+
+togglePageActiveState(true);
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    'Карта инициализирована';
+    togglePageActiveState(false);
   })
-  .setView({
-    lat: 35.681700,
-    lng: 139.753891,
-  }, 12);
+  .setView(TOKYO_CENTER, 12);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -15,55 +18,34 @@ L.tileLayer(
   },
 ).addTo(map);
 
-const mainPinIcon = L.icon({
-  iconUrl: 'img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
-});
+const mainPinIcon = L.icon(PinSetting.main);
+const regularPinIcon = L.icon(PinSetting.regular);
 
-const mainPinMarker = L.marker({
-  lat: 35.681700,
-  lng: 139.753891,
-}, {
+const mainPinMarker = L.marker(TOKYO_CENTER, {
   draggable: true,
   icon: mainPinIcon,
 });
 mainPinMarker.addTo(map);
 
-mainPinMarker.on('moveend', (evt) => {
-  evt.target.getLatLng();
+mainPinMarker.on('move', (evt) => {
+  inputAddress.value = `${evt.target.getLatLng().lat}, ${evt.target.getLatLng().lng}`;
 });
 
 resetButton.addEventListener('click', () => {
-  mainPinMarker.setLatLng({
-    lat: 35.681700,
-    lng: 139.753891,
-  });
-
-  map.setView({
-    lat: 35.681700,
-    lng: 139.753891,
-  }, 12);
+  mainPinMarker.setLatLng(TOKYO_CENTER);
+  map.setView(TOKYO_CENTER, 12);
 });
 
-export const addPoints = (ads) => {
-  const icon = L.icon({
-    iconUrl: 'img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
-
+const addPoints = (ads) => {
   ads.forEach((item) => {
-
-    const otherPinMarker = L.marker({
-      lat: item.coords.lat,
-      lng: item.coords.lng,
+    const pinMarker = L.marker({
+      location: item.location,
     }, {
       draggable: true,
-      icon: icon,
+      icon: regularPinIcon,
     });
-
-    otherPinMarker.addTo(map);
-    otherPinMarker.bindPopup(item.element);
+    pinMarker.addTo(map).bindPopup(generateAd(item));
   });
 };
+
+export {addPoints};
