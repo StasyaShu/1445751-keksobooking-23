@@ -1,6 +1,13 @@
-import {togglePageActiveState} from './form.js';
-import {generateAd} from './render.js';
-import {PinSetting, TOKYO_CENTER} from './data.js';
+import {
+  togglePageActiveState
+} from './form.js';
+import {
+  generateAd
+} from './render.js';
+import {
+  PinSetting,
+  TOKYO_CENTER
+} from './data.js';
 const resetButton = document.querySelector('.ad-form__reset');
 const inputAddress = document.querySelector('#address');
 
@@ -38,9 +45,7 @@ resetButton.addEventListener('click', () => {
 
 const addPoints = (ads) => {
   ads.forEach((item) => {
-    const pinMarker = L.marker({
-      location: item.location,
-    }, {
+    const pinMarker = L.marker(item.location, {
       draggable: true,
       icon: regularPinIcon,
     });
@@ -48,4 +53,6 @@ const addPoints = (ads) => {
   });
 };
 
-export {addPoints};
+export {
+  addPoints
+};
