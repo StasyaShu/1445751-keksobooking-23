@@ -2,9 +2,6 @@ import {ROOMS_FOR_GUESTS_MAP, APARTMENT_TYPES} from './data.js';
 
 const adForm = document.querySelector('.ad-form');
 const filtersForm = document.querySelector('.map__filters');
-const price = adForm.querySelector('#price');
-const timeOut = adForm.querySelector('#timeout');
-const timeIn = adForm.querySelector('#timein');
 
 const toggleDisabledOnFormNodes = (isDisabled) => {
   [adForm, filtersForm].forEach((form) => {
@@ -33,20 +30,20 @@ adForm.rooms.addEventListener('change', validateRoomsInput);
 
 const validatePriceInput = (evt) => {
   const minPrice = APARTMENT_TYPES[evt.target.value].minPrice;
-  price.min = minPrice;
-  price.placeholder = minPrice;
+  adForm.price.min = minPrice;
+  adForm.price.placeholder = minPrice;
 };
 
 adForm.type.addEventListener('change', validatePriceInput);
 
 const validateTimeInInput = (evt) => {
-  timeOut.value = evt.target.value;
+  adForm.timeout.value = evt.target.value;
 };
 
 adForm.timein.addEventListener('change', validateTimeInInput);
 
 const validateTimeOutInput = (evt) => {
-  timeIn.value = evt.target.value;
+  adForm.timein.value = evt.target.value;
 };
 
 adForm.timeout.addEventListener('change', validateTimeOutInput);

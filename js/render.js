@@ -1,4 +1,6 @@
-import {APARTMENT_TYPES} from './data.js';
+import {
+  APARTMENT_TYPES
+} from './data.js';
 
 const offerTemplate = document.querySelector('#card').content.querySelector('.popup');
 const imgTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
@@ -23,23 +25,19 @@ const insertPhoto = (element, array) => {
   });
 };
 
-const generateAds = (ads) => {
-  const adsFragment = document.createDocumentFragment();
-  ads.forEach((ad) => {
-    const adsElement = offerTemplate.cloneNode(true);
-    adsElement.querySelector('.popup__title').textContent = ad.offer.title;
-    adsElement.querySelector('.popup__text--address').textContent = ad.offer.address;
-    adsElement.querySelector('.popup__text--price').textContent = `${ad.offer.price} ₽/ночь`;
-    adsElement.querySelector('.popup__type').textContent = APARTMENT_TYPES[ad.offer.type].name;
-    adsElement.querySelector('.popup__text--capacity').textContent = `${ad.offer.rooms} комнаты для ${ad.offer.guests} гостей`;
-    adsElement.querySelector('.popup__text--time').textContent = `Заезд после ${ad.offer.checkin}, выезд до ${ad.offer.checkout}`;
-    insertFeatures(adsElement.querySelector('.popup__features'), ad.offer.features);
-    adsElement.querySelector('.popup__description').textContent = ad.offer.description;
-    insertPhoto(adsElement.querySelector('.popup__photos'), ad.offer.photos);
-    adsElement.querySelector('.popup__avatar').src = ad.author.avatar;
-    adsFragment.appendChild(adsElement);
-  });
-  return adsFragment;
+const generateAd = (ad) => {
+  const adsElement = offerTemplate.cloneNode(true);
+  adsElement.querySelector('.popup__title').textContent = ad.offer.title;
+  adsElement.querySelector('.popup__text--address').textContent = ad.offer.address;
+  adsElement.querySelector('.popup__text--price').textContent = `${ad.offer.price} ₽/ночь`;
+  adsElement.querySelector('.popup__type').textContent = APARTMENT_TYPES[ad.offer.type].name;
+  adsElement.querySelector('.popup__text--capacity').textContent = `${ad.offer.rooms} комнаты для ${ad.offer.guests} гостей`;
+  adsElement.querySelector('.popup__text--time').textContent = `Заезд после ${ad.offer.checkin}, выезд до ${ad.offer.checkout}`;
+  insertFeatures(adsElement.querySelector('.popup__features'), ad.offer.features);
+  adsElement.querySelector('.popup__description').textContent = ad.offer.description;
+  insertPhoto(adsElement.querySelector('.popup__photos'), ad.offer.photos);
+  adsElement.querySelector('.popup__avatar').src = ad.author.avatar;
+  return adsElement;
 };
 
-export {generateAds};
+export {generateAd};
