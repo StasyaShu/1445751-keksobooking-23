@@ -1,17 +1,11 @@
-import {
-  togglePageActiveState
-} from './form.js';
-import {
-  generateAd
-} from './render.js';
-import {
-  PinSetting,
-  TOKYO_CENTER
-} from './data.js';
+import {togglePageActiveState} from './form.js';
+import {generateAd} from './render.js';
+import {PinSetting, TOKYO_CENTER} from './data.js';
 const resetButton = document.querySelector('.ad-form__reset');
 const inputAddress = document.querySelector('#address');
 
 togglePageActiveState(true);
+inputAddress.setAttribute('readonly', 'readonly');
 
 const map = L.map('map-canvas')
   .on('load', () => {
@@ -25,8 +19,8 @@ L.tileLayer(
   },
 ).addTo(map);
 
-const mainPinIcon = L.icon(PinSetting.main);
-const regularPinIcon = L.icon(PinSetting.regular);
+const mainPinIcon = L.icon(PinSetting.MAIN);
+const regularPinIcon = L.icon(PinSetting.REGULAR);
 
 const mainPinMarker = L.marker(TOKYO_CENTER, {
   draggable: true,
@@ -35,7 +29,7 @@ const mainPinMarker = L.marker(TOKYO_CENTER, {
 mainPinMarker.addTo(map);
 
 mainPinMarker.on('move', (evt) => {
-  inputAddress.value = `${evt.target.getLatLng().lat}, ${evt.target.getLatLng().lng}`;
+  inputAddress.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
 resetButton.addEventListener('click', () => {
@@ -46,13 +40,10 @@ resetButton.addEventListener('click', () => {
 const addPoints = (ads) => {
   ads.forEach((item) => {
     const pinMarker = L.marker(item.location, {
-      draggable: true,
       icon: regularPinIcon,
     });
     pinMarker.addTo(map).bindPopup(generateAd(item));
   });
 };
 
-export {
-  addPoints
-};
+export {addPoints};

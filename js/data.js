@@ -58,12 +58,12 @@ const ROOMS_FOR_GUESTS_MAP = {
 };
 
 const PinSetting = {
-  main: {
+  MAIN: {
     iconUrl: 'img/main-pin.svg',
     iconSize: [52, 52],
     iconAnchor: [26, 52],
   },
-  regular: {
+  REGULAR: {
     iconUrl: 'img/pin.svg',
     iconSize: [40, 40],
     iconAnchor: [20, 40],

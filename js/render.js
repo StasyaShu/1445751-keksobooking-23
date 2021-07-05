@@ -1,6 +1,4 @@
-import {
-  APARTMENT_TYPES
-} from './data.js';
+import {APARTMENT_TYPES} from './data.js';
 
 const offerTemplate = document.querySelector('#card').content.querySelector('.popup');
 const imgTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
