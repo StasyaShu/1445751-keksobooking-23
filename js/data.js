@@ -70,12 +70,18 @@ const PinSetting = {
   },
 };
 
+const OFFERS_NUMBER = 10;
+
 const TOKYO_CENTER = {
-  lat: 35.681700,
-  lng: 139.753891,
+  lat: 35.68170,
+  lng: 139.75389,
 };
 
-const OFFERS_NUMBER = 10;
+const URL_POST = 'https://23.javascript.pages.academy/keksobooking';
+const URL_GET = 'https://23.javascript.pages.academy/keksobooking/data';
+
+const adForm = document.querySelector('.ad-form');
+const filtersForm = document.querySelector('.map__filters');
 
 export {
   FEATURES,
@@ -91,6 +97,10 @@ export {
   APARTMENT_TYPES,
   ROOMS_FOR_GUESTS_MAP,
   PinSetting,
+  OFFERS_NUMBER,
   TOKYO_CENTER,
-  OFFERS_NUMBER
+  URL_POST,
+  URL_GET,
+  adForm,
+  filtersForm
 };

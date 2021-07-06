@@ -1,7 +1,4 @@
-import {ROOMS_FOR_GUESTS_MAP, APARTMENT_TYPES} from './data.js';
-
-const adForm = document.querySelector('.ad-form');
-const filtersForm = document.querySelector('.map__filters');
+import {ROOMS_FOR_GUESTS_MAP, APARTMENT_TYPES, adForm, filtersForm} from './data.js';
 
 const toggleDisabledOnFormNodes = (isDisabled) => {
   [adForm, filtersForm].forEach((form) => {

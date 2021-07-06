@@ -5,7 +5,11 @@ const resetButton = document.querySelector('.ad-form__reset');
 const inputAddress = document.querySelector('#address');
 
 togglePageActiveState(true);
-inputAddress.setAttribute('readonly', 'readonly');
+
+const setDefaultAddress = () => {
+  inputAddress.value = `${TOKYO_CENTER.lat}, ${TOKYO_CENTER.lng}`;
+  inputAddress.setAttribute('readonly', 'readonly');
+};
 
 const map = L.map('map-canvas')
   .on('load', () => {
@@ -46,4 +50,4 @@ const addPoints = (ads) => {
   });
 };
 
-export {addPoints};
+export {addPoints, setDefaultAddress};
