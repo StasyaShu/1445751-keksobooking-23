@@ -1,6 +1,4 @@
-import {
-  APARTMENT_TYPES
-} from './data.js';
+import {APARTMENT_TYPES} from './data.js';
 
 const offerTemplate = document.querySelector('#card').content.querySelector('.popup');
 const imgTemplate = document.querySelector('#card').content.querySelector('.popup__photo');
@@ -8,21 +6,25 @@ const imgTemplate = document.querySelector('#card').content.querySelector('.popu
 const insertFeatures = function (element, array) {
   element.innerHTML = '';
 
-  array.forEach((item) => {
-    const featureItem = document.createElement('li');
-    featureItem.classList.add('popup__feature', `popup__feature--${item}`);
-    element.appendChild(featureItem);
-  });
+  if(array) {
+    array.forEach((item) => {
+      const featureItem = document.createElement('li');
+      featureItem.classList.add('popup__feature', `popup__feature--${item}`);
+      element.appendChild(featureItem);
+    });
+  }
 };
 
 const insertPhoto = (element, array) => {
   element.innerHTML = '';
 
-  array.forEach((item) => {
-    const adPhoto = imgTemplate.cloneNode(true);
-    adPhoto.src = item;
-    element.appendChild(adPhoto);
-  });
+  if(array){
+    array.forEach((item) => {
+      const adPhoto = imgTemplate.cloneNode(true);
+      adPhoto.src = item;
+      element.appendChild(adPhoto);
+    });
+  }
 };
 
 const generateAd = (ad) => {

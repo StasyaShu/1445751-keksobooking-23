@@ -1,7 +1,6 @@
-import {ROOMS_FOR_GUESTS_MAP, APARTMENT_TYPES} from './data.js';
-
-const adForm = document.querySelector('.ad-form');
-const filtersForm = document.querySelector('.map__filters');
+import {ROOMS_FOR_GUESTS_MAP, APARTMENT_TYPES, adForm, filtersForm, URL_POST} from './data.js';
+import {onSubmitSuccess, onSubmitError} from './alerts.js';
+import {postData} from './backend.js';
 
 const toggleDisabledOnFormNodes = (isDisabled) => {
   [adForm, filtersForm].forEach((form) => {
@@ -47,5 +46,10 @@ const validateTimeOutInput = (evt) => {
 };
 
 adForm.timeout.addEventListener('change', validateTimeOutInput);
+
+adForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  postData(URL_POST, new FormData(evt.target), onSubmitSuccess, onSubmitError);
+});
 
 export {togglePageActiveState};
