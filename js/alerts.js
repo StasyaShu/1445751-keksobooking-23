@@ -1,42 +1,47 @@
 import {adForm, filtersForm} from './data.js';
 import {setDefaultAddress} from './map.js';
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+const errorButton = errorTemplate.querySelector('.error__button');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
+const loadError = document.querySelector('.load-error');
 const ALERT_SHOW_TIME = 5000;
-const body = document.querySelector('body');
 
 // Функция ошибки отправки формы
 const onSubmitError = () => {
   const submitErrorMessage = errorTemplate.cloneNode(true);
-  body.append(submitErrorMessage);
+  document.body.append(submitErrorMessage);
+  errorButton.addEventListener('click', () => {
+    submitErrorMessage.remove();
+    adForm.reset();
+    filtersForm.reset();
+    setDefaultAddress();
+  });
 };
 
 // Функция в случае успешной отправки формы и сброса данных к первоначальному состоянию
 const onSubmitSuccess = () => {
   const submitSuccessMessage = successTemplate.cloneNode(true);
+  document.body.append(submitSuccessMessage);
   adForm.reset();
   filtersForm.reset();
   setDefaultAddress();
-  body.append(submitSuccessMessage);
+  document.addEventListener('keydown', (evt) => {
+    evt.preventDefault();
+    if (evt.keyCode === 27) {
+      submitSuccessMessage.remove();
+    }
+  });
+  document.addEventListener('click', () => {
+    submitSuccessMessage.remove();
+  });
 };
 
 // Функция показа ошибки при получении данных с сервера - произвольный дизайн
 const onGetDataError = () => {
-  const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = 100;
-  alertContainer.style.position = 'absolute';
-  alertContainer.style.left = 0;
-  alertContainer.style.top = 0;
-  alertContainer.style.right = 0;
-  alertContainer.style.padding = '10px 3px';
-  alertContainer.style.fontSize = '30px';
-  alertContainer.style.textAlign = 'center';
-  alertContainer.style.backgroundColor = 'red';
-  alertContainer.textContent = 'Ошибка при загрузке данных';
-  document.body.append(alertContainer);
+  loadError.classList.add('load-error__active');
 
   setTimeout(() => {
-    alertContainer.remove();
+    loadError.remove();
   }, ALERT_SHOW_TIME);
 };
 
