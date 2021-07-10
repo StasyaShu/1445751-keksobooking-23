@@ -1,40 +1,50 @@
-import {adForm, filtersForm} from './data.js';
-import {setDefaultAddress} from './map.js';
+import {reset} from './map.js';
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 const errorButton = errorTemplate.querySelector('.error__button');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const loadError = document.querySelector('.load-error');
 const ALERT_SHOW_TIME = 5000;
+const submitSuccessMessage = successTemplate.cloneNode(true);
+const submitErrorMessage = errorTemplate.cloneNode(true);
+
+const documentClickHandler = () => {
+  closeSubmitSuccess();
+};
+
+const documentKeydownHandler = (evt) => {
+  if (evt.keyCode === 27) {
+    closeSubmitSuccess();
+  }
+};
+
+const errorButtonClickHandler = () => {
+  closeSubmitError();
+};
 
 // Функция ошибки отправки формы
-const onSubmitError = () => {
-  const submitErrorMessage = errorTemplate.cloneNode(true);
+function onSubmitError () {
   document.body.append(submitErrorMessage);
-  errorButton.addEventListener('click', () => {
-    submitErrorMessage.remove();
-    adForm.reset();
-    filtersForm.reset();
-    setDefaultAddress();
-  });
-};
+  errorButton.addEventListener('click', errorButtonClickHandler);
+}
+
+function closeSubmitError () {
+  submitErrorMessage.remove();
+  errorButton.removeEventListener('click', errorButtonClickHandler);
+}
 
 // Функция в случае успешной отправки формы и сброса данных к первоначальному состоянию
-const onSubmitSuccess = () => {
-  const submitSuccessMessage = successTemplate.cloneNode(true);
+function onSubmitSuccess () {
   document.body.append(submitSuccessMessage);
-  adForm.reset();
-  filtersForm.reset();
-  setDefaultAddress();
-  document.addEventListener('keydown', (evt) => {
-    evt.preventDefault();
-    if (evt.keyCode === 27) {
-      submitSuccessMessage.remove();
-    }
-  });
-  document.addEventListener('click', () => {
-    submitSuccessMessage.remove();
-  });
-};
+  reset();
+  document.addEventListener('keydown', documentKeydownHandler);
+  document.addEventListener('click', documentClickHandler);
+}
+
+function closeSubmitSuccess () {
+  submitSuccessMessage.remove();
+  document.removeEventListener('keydown', documentKeydownHandler);
+  document.removeEventListener('click', documentClickHandler);
+}
 
 // Функция показа ошибки при получении данных с сервера - произвольный дизайн
 const onGetDataError = () => {

@@ -77,7 +77,7 @@ const TOKYO_CENTER = {
   lng: 139.75389,
 };
 
-const URL_POST = 'https://23.javascript.pages.academy/keksobooking';
+const URL_POST = 'https://23.javascript.pages.academy/keksobooking/wow';
 const URL_GET = 'https://23.javascript.pages.academy/keksobooking/data';
 
 const adForm = document.querySelector('.ad-form');

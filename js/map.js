@@ -50,11 +50,15 @@ const setDefaultAddress = () => {
   map.setView(TOKYO_CENTER, 12);
 };
 
-clearButton.addEventListener('click', (evt) => {
-  evt.preventDefault();
+const reset = () => {
+  setDefaultAddress();
   adForm.reset();
   filtersForm.reset();
-  setDefaultAddress();
+};
+
+clearButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  reset();
 });
 
-export {addPoints, setDefaultAddress, onGetDataSuccess};
+export {addPoints, setDefaultAddress, onGetDataSuccess, reset};

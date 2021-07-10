@@ -1,5 +1,5 @@
 import {ROOMS_FOR_GUESTS_MAP, APARTMENT_TYPES, adForm, filtersForm, URL_POST} from './data.js';
-import {onSubmitSuccess, onSubmitError} from './alerts.js';
+import {onSubmitError, onSubmitSuccess} from './alerts.js';
 import {postData} from './backend.js';
 
 const toggleDisabledOnFormNodes = (isDisabled) => {
