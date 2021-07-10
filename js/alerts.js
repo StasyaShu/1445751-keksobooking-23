@@ -1,6 +1,5 @@
 import {reset} from './map.js';
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-const errorButton = errorTemplate.querySelector('.error__button');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const loadError = document.querySelector('.load-error');
 const ALERT_SHOW_TIME = 5000;
@@ -19,17 +18,18 @@ const documentKeydownHandler = (evt) => {
 
 const errorButtonClickHandler = () => {
   closeSubmitError();
+  reset();
 };
 
 // Функция ошибки отправки формы
 function onSubmitError () {
   document.body.append(submitErrorMessage);
-  errorButton.addEventListener('click', errorButtonClickHandler);
+  document.addEventListener('click', errorButtonClickHandler);
 }
 
 function closeSubmitError () {
   submitErrorMessage.remove();
-  errorButton.removeEventListener('click', errorButtonClickHandler);
+  document.removeEventListener('click', errorButtonClickHandler);
 }
 
 // Функция в случае успешной отправки формы и сброса данных к первоначальному состоянию

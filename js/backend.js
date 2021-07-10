@@ -9,7 +9,9 @@ const postData = (url, data, onSuccess, onError) => {
       }
     })
     .then((json) => {
-      onSuccess(json);
+      if(json.ok){
+        return onSuccess(json);
+      }
     })
     .catch((err) => {
       onError(err);
