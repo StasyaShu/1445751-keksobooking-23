@@ -5,8 +5,7 @@ const postData = (url, form, onSuccess, onError) => {
   })
     .then((response) => {
       if (response.ok) {
-        response.json();
-        return onSuccess(response);
+        return onSuccess(response.json());
       }
       onError(response);
     })

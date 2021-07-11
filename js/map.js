@@ -1,6 +1,7 @@
 import {togglePageActiveState} from './form.js';
 import {generateAd} from './render.js';
 import {adForm, filtersForm, PinSetting, TOKYO_CENTER, OFFERS_NUMBER} from './data.js';
+import {filterMapPins} from './filter.js';
 const inputAddress = document.querySelector('#address');
 const clearButton = document.querySelector('.ad-form__reset');
 
@@ -42,7 +43,10 @@ const addPoints = (ads) => {
 
 // Функция отрисовки пинов в случае успешного получения данных с сервера
 const onGetDataSuccess = (offers) => {
-  addPoints(offers.slice(0, OFFERS_NUMBER));
+  const allOffersArr = offers.slice(0, OFFERS_NUMBER);
+  addPoints(allOffersArr);
+
+  filtersForm.addEventListener('change', filterMapPins);
 };
 
 const setDefaultAddress = () => {

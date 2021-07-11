@@ -13,6 +13,7 @@ import {onGetDataError} from './alerts.js';
 
 getData(URL_GET, onGetDataSuccess, onGetDataError);
 
+
 // const similarOffer = document.querySelector('#map-canvas');
 // generateAds(offersArray);
 // similarOffer.appendChild(generateAds(offersArray));
