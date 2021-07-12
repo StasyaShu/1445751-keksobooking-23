@@ -19,15 +19,6 @@ const PRICE = {
   min: 0,
   max: 1000000,
 };
-const MIDDLE_PRICE = {
-  min: 10000,
-  max: 50000,
-};
-const LOW_PRICE = 10000;
-const HIGH_PRICE = {
-  min: 50000,
-  max: 1000000,
-};
 const ROOMS = {
   min: 1,
   max: 8,
@@ -79,7 +70,7 @@ const PinSetting = {
   },
 };
 
-const OFFERS_NUMBER = 10;
+const OFFERS_NUMBER = 15;
 
 const TOKYO_CENTER = {
   lat: 35.68170,
@@ -91,6 +82,8 @@ const URL_GET = 'https://23.javascript.pages.academy/keksobooking/data';
 
 const adForm = document.querySelector('.ad-form');
 const filtersForm = document.querySelector('.map__filters');
+
+const RERENDER_DELAY = 500;
 
 export {
   FEATURES,
@@ -112,7 +105,5 @@ export {
   URL_GET,
   adForm,
   filtersForm,
-  MIDDLE_PRICE,
-  LOW_PRICE,
-  HIGH_PRICE
+  RERENDER_DELAY
 };

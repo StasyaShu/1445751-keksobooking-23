@@ -1,64 +1,41 @@
-import {filtersForm, MIDDLE_PRICE, LOW_PRICE, HIGH_PRICE} from './data.js';
-import {getRandomInteger} from './util.js';
-const HOUSING_PRICE = {
-  middle: getRandomInteger(MIDDLE_PRICE.min, MIDDLE_PRICE.max),
-  low: getRandomInteger(0, LOW_PRICE),
-  high: getRandomInteger(HIGH_PRICE.min, HIGH_PRICE.max),
-};
-const ROOMS_NUMBER = {
-  1: 'Одна комната',
-  2: 'Две комнаты',
-  3: 'Три комнаты',
-};
-const GUESTS_NUMBER = {
-  1: 'Один гость',
-  2: 'Два гостя',
-  0: 'Не для гостей',
-};
+import {
+  filtersForm
+} from './data.js';
 const VALUE_OF_ALL_ADS = 'any';
-
-const filterPinsByType = function (dataElement) {
-  return filtersForm['housing-type'].value === dataElement.offer.type || filtersForm['housing-type'].value === VALUE_OF_ALL_ADS;
+const PRICE_MAP = {
+  any: {
+    min: -Infinity,
+    max: Infinity,
+  },
+  middle: {
+    min: 10000,
+    max: 50000,
+  },
+  low: {
+    min: 0,
+    max: 10000,
+  },
+  high: {
+    min: 50000,
+    max: Infinity,
+  },
 };
 
-const filterPinsByPrice = function (dataElement) {
-  for (const key in HOUSING_PRICE) {
-    if (key === filtersForm['housing-price'].value) {
-      return filtersForm['housing-price'].value === dataElement.offer.price;
-    }
-    return filtersForm['housing-price'].value === VALUE_OF_ALL_ADS;
-  }
-  // if (filtersForm['housing-price'].value === HOUSING_PRICE.key) {
-  //   return filtersForm['housing-price'].value === dataElement.offer.price;
-  // }
-  // return filtersForm['housing-price'].value === VALUE_OF_ALL_ADS;
-};
+const filterPinsByType = (dataElement) =>
+  filtersForm['housing-type'].value === dataElement.offer.type || filtersForm['housing-type'].value === VALUE_OF_ALL_ADS;
 
-const filterPinsByRooms = function (dataElement) {
-  for (const key in ROOMS_NUMBER) {
-    if (key === filtersForm['housing-rooms'].value) {
-      return filtersForm['housing-rooms'].value === dataElement.offer.rooms;
-    }
-    return filtersForm['housing-rooms'].value || VALUE_OF_ALL_ADS;
-  }
-  // if (filtersForm['housing-rooms'].value === ROOMS_NUMBER.key) {
-  //   return filtersForm['housing-rooms'].value === dataElement.offer.rooms;
-  // }
-  // return filtersForm['housing-rooms'].value || VALUE_OF_ALL_ADS;
-};
+const filterPinsByPrice = (dataElement) =>
+  PRICE_MAP[filtersForm['housing-price'].value].min < dataElement.offer.price && PRICE_MAP[filtersForm['housing-price'].value].max > dataElement.offer.price;
 
-const filterPinsByGuests = function (dataElement) {
-  for (const key in GUESTS_NUMBER) {
-    if (key === filtersForm['housing-guests'].value) {
-      return filtersForm['housing-guests'].value === dataElement.offer.guests;
-    }
-    return filtersForm['housing-guests'].value || VALUE_OF_ALL_ADS;
-  }
-};
+const filterPinsByRooms = (dataElement) => Number(filtersForm['housing-rooms'].value) === dataElement.offer.rooms || filtersForm['housing-rooms'].value === VALUE_OF_ALL_ADS;
 
-const getFeatureValues = () => {
+const filterPinsByGuests = (dataElement) => Number(filtersForm['housing-guests'].value) === dataElement.offer.guests || filtersForm['housing-guests'].value === VALUE_OF_ALL_ADS;
+
+const featureFilterFormNodesArr = Array.from(filtersForm.features);
+
+const getSelectedFeatures = () => {
   const featuresArray = [];
-  filtersForm.features.forEach((filter) => {
+  featureFilterFormNodesArr.forEach((filter) => {
     const value = filter.getAttribute('value');
     if (filter.checked) {
       featuresArray.push(value);
@@ -67,17 +44,12 @@ const getFeatureValues = () => {
   return featuresArray;
 };
 
-const featuresList = getFeatureValues();
-
-const filterPinsByFeatures = function (dataElement) {
-  if (featuresList.length > 0 && (!dataElement.offer.features || dataElement.offer.features.length === 0)) {
-    return false;
-  }
-  for (const feature of featuresList) {
-    if (!dataElement.offer.features.includes(feature)) {
-      return false;
-    }
-  }
+const filterPinsByFeatures = (pinElement) => {
+  const featuresList = getSelectedFeatures();
+  return Boolean(
+    pinElement.offer.features &&
+    featuresList.every((item) => pinElement.offer.features.includes(item)),
+  );
 };
 
 const filterMapPins = function (pins) {
