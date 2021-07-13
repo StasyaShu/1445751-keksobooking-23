@@ -1007,6 +1007,24 @@ fieldset {
   opacity: 0.6;
 }
 
+.load-error {
+  display: none;
+  font-family: 'Arial', Helvetica, sans-serif;
+  font-size: 25px;
+  position: absolute;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  right: 0;
+  text-align: center;
+  background-color: red;
+  color: white;
+}
+
+.load-error__active {
+  display: block;
+}
+
 .visually-hidden {
   position: absolute;
 

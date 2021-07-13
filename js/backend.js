@@ -1,18 +1,16 @@
-const postData = (url, data, onSuccess, onError) => {
+const postData = (url, form, onSuccess, onError) => {
   fetch(url, {
     method: 'POST',
-    body: data,
+    body: form,
   })
     .then((response) => {
       if (response.ok) {
-        return response.json();
+        return onSuccess(response.json());
       }
+      onError(response);
     })
-    .then((json) => {
-      onSuccess(json);
-    })
-    .catch((err) => {
-      onError(err);
+    .catch((error) => {
+      onError(error);
     });
 };
 

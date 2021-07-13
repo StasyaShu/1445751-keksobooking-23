@@ -1,6 +1,8 @@
+// global _:readonly
 import {togglePageActiveState} from './form.js';
 import {generateAd} from './render.js';
-import {adForm, filtersForm, PinSetting, TOKYO_CENTER, OFFERS_NUMBER} from './data.js';
+import {adForm, filtersForm, PinSetting, TOKYO_CENTER, OFFERS_NUMBER, RERENDER_DELAY} from './data.js';
+import {filterMapPins} from './filter.js';
 const inputAddress = document.querySelector('#address');
 const clearButton = document.querySelector('.ad-form__reset');
 
@@ -31,18 +33,26 @@ mainPinMarker.on('move', (evt) => {
   inputAddress.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
+const markerGroup = L.layerGroup().addTo(map);
+
 const addPoints = (ads) => {
   ads.forEach((item) => {
     const pinMarker = L.marker(item.location, {
       icon: regularPinIcon,
     });
-    pinMarker.addTo(map).bindPopup(generateAd(item));
+    pinMarker.addTo(markerGroup).bindPopup(generateAd(item));
   });
 };
 
 // Функция отрисовки пинов в случае успешного получения данных с сервера
 const onGetDataSuccess = (offers) => {
-  addPoints(offers.slice(0, OFFERS_NUMBER));
+  const allOffersArr = offers.slice(0, OFFERS_NUMBER);
+  addPoints(allOffersArr);
+
+  filtersForm.addEventListener('change', (_.debounce(() => {
+    markerGroup.clearLayers();
+    addPoints(filterMapPins(allOffersArr));
+  }, RERENDER_DELAY)));
 };
 
 const setDefaultAddress = () => {
@@ -50,11 +60,15 @@ const setDefaultAddress = () => {
   map.setView(TOKYO_CENTER, 12);
 };
 
-clearButton.addEventListener('click', (evt) => {
-  evt.preventDefault();
+const reset = () => {
+  setDefaultAddress();
   adForm.reset();
   filtersForm.reset();
-  setDefaultAddress();
+};
+
+clearButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  reset();
 });
 
-export {addPoints, setDefaultAddress, onGetDataSuccess};
+export {addPoints, setDefaultAddress, onGetDataSuccess, reset};

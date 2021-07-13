@@ -1,42 +1,57 @@
-import {adForm, filtersForm} from './data.js';
-import {setDefaultAddress} from './map.js';
+import {reset} from './map.js';
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
+const loadError = document.querySelector('.load-error');
 const ALERT_SHOW_TIME = 5000;
-const body = document.querySelector('body');
+const submitSuccessMessage = successTemplate.cloneNode(true);
+const submitErrorMessage = errorTemplate.cloneNode(true);
+
+const documentClickHandler = () => {
+  closeSubmitSuccess();
+};
+
+const documentKeydownHandler = (evt) => {
+  if (evt.keyCode === 27) {
+    closeSubmitSuccess();
+  }
+};
+
+const errorButtonClickHandler = () => {
+  closeSubmitError();
+  reset();
+};
 
 // Функция ошибки отправки формы
-const onSubmitError = () => {
-  const submitErrorMessage = errorTemplate.cloneNode(true);
-  body.append(submitErrorMessage);
-};
+function onSubmitError () {
+  document.body.append(submitErrorMessage);
+  document.addEventListener('click', errorButtonClickHandler);
+}
+
+function closeSubmitError () {
+  submitErrorMessage.remove();
+  document.removeEventListener('click', errorButtonClickHandler);
+}
 
 // Функция в случае успешной отправки формы и сброса данных к первоначальному состоянию
-const onSubmitSuccess = () => {
-  const submitSuccessMessage = successTemplate.cloneNode(true);
-  adForm.reset();
-  filtersForm.reset();
-  setDefaultAddress();
-  body.append(submitSuccessMessage);
-};
+function onSubmitSuccess () {
+  document.body.append(submitSuccessMessage);
+  reset();
+  document.addEventListener('keydown', documentKeydownHandler);
+  document.addEventListener('click', documentClickHandler);
+}
+
+function closeSubmitSuccess () {
+  submitSuccessMessage.remove();
+  document.removeEventListener('keydown', documentKeydownHandler);
+  document.removeEventListener('click', documentClickHandler);
+}
 
 // Функция показа ошибки при получении данных с сервера - произвольный дизайн
 const onGetDataError = () => {
-  const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = 100;
-  alertContainer.style.position = 'absolute';
-  alertContainer.style.left = 0;
-  alertContainer.style.top = 0;
-  alertContainer.style.right = 0;
-  alertContainer.style.padding = '10px 3px';
-  alertContainer.style.fontSize = '30px';
-  alertContainer.style.textAlign = 'center';
-  alertContainer.style.backgroundColor = 'red';
-  alertContainer.textContent = 'Ошибка при загрузке данных';
-  document.body.append(alertContainer);
+  loadError.classList.add('load-error__active');
 
   setTimeout(() => {
-    alertContainer.remove();
+    loadError.remove();
   }, ALERT_SHOW_TIME);
 };
 
