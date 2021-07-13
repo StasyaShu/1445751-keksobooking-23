@@ -1,4 +1,5 @@
 import {reset} from './map.js';
+import {filtersForm} from './data.js';
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const loadError = document.querySelector('.load-error');
@@ -21,7 +22,6 @@ const errorButtonClickHandler = () => {
   reset();
 };
 
-// Функция ошибки отправки формы
 function onSubmitError () {
   document.body.append(submitErrorMessage);
   document.addEventListener('click', errorButtonClickHandler);
@@ -32,7 +32,6 @@ function closeSubmitError () {
   document.removeEventListener('click', errorButtonClickHandler);
 }
 
-// Функция в случае успешной отправки формы и сброса данных к первоначальному состоянию
 function onSubmitSuccess () {
   document.body.append(submitSuccessMessage);
   reset();
@@ -46,13 +45,12 @@ function closeSubmitSuccess () {
   document.removeEventListener('click', documentClickHandler);
 }
 
-// Функция показа ошибки при получении данных с сервера - произвольный дизайн
 const onGetDataError = () => {
   loadError.classList.add('load-error__active');
-
   setTimeout(() => {
     loadError.remove();
   }, ALERT_SHOW_TIME);
+  filtersForm.classList.add('map__filters--disabled');
 };
 
 export {onSubmitError, onSubmitSuccess, onGetDataError};

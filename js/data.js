@@ -70,7 +70,7 @@ const PinSetting = {
   },
 };
 
-const OFFERS_NUMBER = 15;
+const OFFERS_NUMBER = 10;
 
 const TOKYO_CENTER = {
   lat: 35.68170,
@@ -82,8 +82,6 @@ const URL_GET = 'https://23.javascript.pages.academy/keksobooking/data';
 
 const adForm = document.querySelector('.ad-form');
 const filtersForm = document.querySelector('.map__filters');
-
-const RERENDER_DELAY = 500;
 
 export {
   FEATURES,
@@ -104,6 +102,5 @@ export {
   URL_POST,
   URL_GET,
   adForm,
-  filtersForm,
-  RERENDER_DELAY
+  filtersForm
 };
