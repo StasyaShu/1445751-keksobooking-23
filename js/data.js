@@ -77,11 +77,17 @@ const TOKYO_CENTER = {
   lng: 139.75389,
 };
 
-const URL_POST = 'https://23.javascript.pages.academy/keksobooking';
+const URL_POST = 'https://23.javascript.pages.academy/keksobooking/wew';
 const URL_GET = 'https://23.javascript.pages.academy/keksobooking/data';
 
 const adForm = document.querySelector('.ad-form');
 const filtersForm = document.querySelector('.map__filters');
+
+const FILE_TYPES = ['gif', 'jpeg', 'jpg', 'png', 'webp', 'svg'];
+const adFormPhoto = adForm.querySelector('.ad-form__img');
+const inputFileOffersPhoto = adForm.querySelector('#images');
+const inputFileUsersAvatar = adForm.querySelector('.ad-form-header__input');
+const usersAvatar = adForm.querySelector('.ad-form-header__img');
 
 export {
   FEATURES,
@@ -102,5 +108,10 @@ export {
   URL_POST,
   URL_GET,
   adForm,
-  filtersForm
+  filtersForm,
+  FILE_TYPES,
+  adFormPhoto,
+  inputFileOffersPhoto,
+  inputFileUsersAvatar,
+  usersAvatar
 };

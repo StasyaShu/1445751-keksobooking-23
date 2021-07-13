@@ -54,7 +54,6 @@ const reset = () => {
   adForm.reset();
   filtersForm.reset();
   scrollTo({top: 0, behavior: 'smooth'});
-  filterMapPins;
 };
 
 const onGetDataSuccess = (offers) => {
@@ -72,9 +71,6 @@ const onGetDataSuccess = (offers) => {
   });
 };
 
-clearButton.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  reset();
-});
+clearButton.addEventListener('click', reset);
 
-export {addPoints, setDefaultAddress, onGetDataSuccess, reset};
+export {addPoints, setDefaultAddress, onGetDataSuccess, reset, map};

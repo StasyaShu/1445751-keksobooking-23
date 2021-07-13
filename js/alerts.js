@@ -1,6 +1,7 @@
 import {reset} from './map.js';
 import {filtersForm} from './data.js';
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+const errorButton = errorTemplate.querySelector('.error__button');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const loadError = document.querySelector('.load-error');
 const ALERT_SHOW_TIME = 5000;
@@ -14,22 +15,26 @@ const documentClickHandler = () => {
 const documentKeydownHandler = (evt) => {
   if (evt.keyCode === 27) {
     closeSubmitSuccess();
+    closeSubmitError();
   }
 };
 
 const errorButtonClickHandler = () => {
   closeSubmitError();
-  reset();
 };
 
 function onSubmitError () {
   document.body.append(submitErrorMessage);
   document.addEventListener('click', errorButtonClickHandler);
+  errorButton.addEventListener('click', errorButtonClickHandler);
+  document.addEventListener('keydown', documentKeydownHandler);
 }
 
 function closeSubmitError () {
   submitErrorMessage.remove();
   document.removeEventListener('click', errorButtonClickHandler);
+  errorButton.removeEventListener('click', errorButtonClickHandler);
+  document.removeEventListener('keydown', documentKeydownHandler);
 }
 
 function onSubmitSuccess () {
