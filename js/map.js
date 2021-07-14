@@ -67,7 +67,7 @@ const onGetDataSuccess = (offers) => {
 
   filtersForm.addEventListener('reset', () => {
     markerGroup.clearLayers();
-    addPoints(filterMapPins(allOffersArr));
+    addPoints(allOffersArr);
   });
 };
 
