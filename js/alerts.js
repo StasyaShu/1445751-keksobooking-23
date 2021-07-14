@@ -1,5 +1,7 @@
 import {reset} from './map.js';
+import {filtersForm} from './data.js';
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+const errorButton = errorTemplate.querySelector('.error__button');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const loadError = document.querySelector('.load-error');
 const ALERT_SHOW_TIME = 5000;
@@ -13,26 +15,28 @@ const documentClickHandler = () => {
 const documentKeydownHandler = (evt) => {
   if (evt.keyCode === 27) {
     closeSubmitSuccess();
+    closeSubmitError();
   }
 };
 
 const errorButtonClickHandler = () => {
   closeSubmitError();
-  reset();
 };
 
-// Функция ошибки отправки формы
 function onSubmitError () {
   document.body.append(submitErrorMessage);
   document.addEventListener('click', errorButtonClickHandler);
+  errorButton.addEventListener('click', errorButtonClickHandler);
+  document.addEventListener('keydown', documentKeydownHandler);
 }
 
 function closeSubmitError () {
   submitErrorMessage.remove();
   document.removeEventListener('click', errorButtonClickHandler);
+  errorButton.removeEventListener('click', errorButtonClickHandler);
+  document.removeEventListener('keydown', documentKeydownHandler);
 }
 
-// Функция в случае успешной отправки формы и сброса данных к первоначальному состоянию
 function onSubmitSuccess () {
   document.body.append(submitSuccessMessage);
   reset();
@@ -46,13 +50,12 @@ function closeSubmitSuccess () {
   document.removeEventListener('click', documentClickHandler);
 }
 
-// Функция показа ошибки при получении данных с сервера - произвольный дизайн
 const onGetDataError = () => {
   loadError.classList.add('load-error__active');
-
   setTimeout(() => {
     loadError.remove();
   }, ALERT_SHOW_TIME);
+  filtersForm.classList.add('map__filters--disabled');
 };
 
 export {onSubmitError, onSubmitSuccess, onGetDataError};

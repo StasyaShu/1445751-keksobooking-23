@@ -70,20 +70,24 @@ const PinSetting = {
   },
 };
 
-const OFFERS_NUMBER = 15;
+const OFFERS_NUMBER = 10;
 
 const TOKYO_CENTER = {
   lat: 35.68170,
   lng: 139.75389,
 };
 
-const URL_POST = 'https://23.javascript.pages.academy/keksobooking';
+const URL_POST = 'https://23.javascript.pages.academy/keksobooking/wew';
 const URL_GET = 'https://23.javascript.pages.academy/keksobooking/data';
 
 const adForm = document.querySelector('.ad-form');
 const filtersForm = document.querySelector('.map__filters');
 
-const RERENDER_DELAY = 500;
+const FILE_TYPES = ['gif', 'jpeg', 'jpg', 'png', 'webp', 'svg'];
+const adFormPhoto = adForm.querySelector('.ad-form__img');
+const inputFileOffersPhoto = adForm.querySelector('#images');
+const inputFileUsersAvatar = adForm.querySelector('.ad-form-header__input');
+const usersAvatar = adForm.querySelector('.ad-form-header__img');
 
 export {
   FEATURES,
@@ -105,5 +109,9 @@ export {
   URL_GET,
   adForm,
   filtersForm,
-  RERENDER_DELAY
+  FILE_TYPES,
+  adFormPhoto,
+  inputFileOffersPhoto,
+  inputFileUsersAvatar,
+  usersAvatar
 };

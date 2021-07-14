@@ -1,6 +1,4 @@
-import {
-  filtersForm
-} from './data.js';
+import {filtersForm} from './data.js';
 const VALUE_OF_ALL_ADS = 'any';
 const PRICE_MAP = {
   any: {
@@ -21,6 +19,8 @@ const PRICE_MAP = {
   },
 };
 
+const featureFilterFormNodesArr = Array.from(filtersForm.features);
+
 const filterPinsByType = (dataElement) =>
   filtersForm['housing-type'].value === dataElement.offer.type || filtersForm['housing-type'].value === VALUE_OF_ALL_ADS;
 
@@ -31,26 +31,11 @@ const filterPinsByRooms = (dataElement) => Number(filtersForm['housing-rooms'].v
 
 const filterPinsByGuests = (dataElement) => Number(filtersForm['housing-guests'].value) === dataElement.offer.guests || filtersForm['housing-guests'].value === VALUE_OF_ALL_ADS;
 
-const featureFilterFormNodesArr = Array.from(filtersForm.features);
-
-const getSelectedFeatures = () => {
-  const featuresArray = [];
-  featureFilterFormNodesArr.forEach((filter) => {
-    const value = filter.getAttribute('value');
-    if (filter.checked) {
-      featuresArray.push(value);
-    }
-  });
-  return featuresArray;
-};
-
-const filterPinsByFeatures = (pinElement) => {
-  const featuresList = getSelectedFeatures();
-  return Boolean(
-    pinElement.offer.features &&
-    featuresList.every((item) => pinElement.offer.features.includes(item)),
-  );
-};
+const filterPinsByFeatures = (dataElement) => !featureFilterFormNodesArr.some((elem) => {
+  const isChecked = elem.checked;
+  const doesentIncludeVal = dataElement.offer.features && !dataElement.offer.features.includes(elem.value);
+  return  isChecked && doesentIncludeVal;
+});
 
 const filterMapPins = function (pins) {
   return pins.
