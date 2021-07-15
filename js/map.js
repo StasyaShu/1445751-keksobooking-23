@@ -3,6 +3,7 @@ import {generateAd} from './render.js';
 import {adForm, filtersForm, PinSetting, TOKYO_CENTER, OFFERS_NUMBER} from './data.js';
 import {filterMapPins} from './filter.js';
 import {debounce} from './util.js';
+
 const inputAddress = document.querySelector('#address');
 const clearButton = document.querySelector('.ad-form__reset');
 

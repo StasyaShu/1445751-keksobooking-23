@@ -1,10 +1,11 @@
 import {reset} from './map.js';
-import {filtersForm} from './data.js';
+import {filtersForm, ALERT_SHOW_TIME, ESC_KEY_CODE} from './data.js';
+
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 const errorButton = errorTemplate.querySelector('.error__button');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const loadError = document.querySelector('.load-error');
-const ALERT_SHOW_TIME = 5000;
+
 const submitSuccessMessage = successTemplate.cloneNode(true);
 const submitErrorMessage = errorTemplate.cloneNode(true);
 
@@ -13,7 +14,7 @@ const documentClickHandler = () => {
 };
 
 const documentKeydownHandler = (evt) => {
-  if (evt.keyCode === 27) {
+  if (evt.keyCode === ESC_KEY_CODE) {
     closeSubmitSuccess();
     closeSubmitError();
   }
